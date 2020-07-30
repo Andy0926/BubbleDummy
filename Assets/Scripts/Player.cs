@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Build;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -11,22 +12,22 @@ public class Player : MonoBehaviour
     Rigidbody2D myRigidBody;
     Animator myAnimator;
     Collider2D myCollider2d;
-    //CapsuleCollider2D capsuleCollider2D;
-    //BoxCollider2D boxCollider2D;
     [SerializeField] float runSpeed = 1.5f;
     [SerializeField] float jumpSpeed = 10.0f;
-    [SerializeField] private Transform[] groundPoints;
-    [SerializeField ]private float groundRadius;
-    [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask platformLayerMask;
+
+    public GameObject projectileLeft, projectileRight;
+    Vector2 projectilePosition;
+    public float fireRate = 0.5f;
+    float nextFire = 0;
+    bool facingRight = true;
+
 
     private bool isGrounded;
     void Start()
     {
         myRigidBody = transform.GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        //capsuleCollider2D = transform.GetComponent<CapsuleCollider2D>();
-        //boxCollider2D = transform.GetComponent<BoxCollider2D>();
         myCollider2d = GetComponent<Collider2D>();
     }
 
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour
         Jump();
         Walk();
         FlipSprite();
-        
+        fire();
         //HandleLayers();
     }
 
@@ -49,6 +50,18 @@ public class Player : MonoBehaviour
 
         bool walking = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         myAnimator.SetBool("Walking", walking);
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            facingRight = true;
+            Debug.Log("right");
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+         
+            facingRight = false;
+            Debug.Log("left");
+        }
+
     }
 
     private void FlipSprite()
@@ -58,6 +71,7 @@ public class Player : MonoBehaviour
         if(velocity)
         {
             transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x),1f);
+            
             // reverse the current scaling of x axis
         }
     }
@@ -79,6 +93,28 @@ public class Player : MonoBehaviour
             myAnimator.SetLayerWeight(1, 1);
             myAnimator.SetTrigger("Jumping");
         }
+    }
+
+    void fire()
+    {
+        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            projectilePosition = transform.position;
+            if (facingRight)
+            {
+                projectilePosition += new Vector2(+0.1f, 0);
+                Instantiate(projectileRight, projectilePosition, Quaternion.identity);
+                Debug.Log(projectilePosition);
+            }
+            else
+            {
+                projectilePosition += new Vector2(-0.1f, 0);
+                Instantiate(projectileLeft, projectilePosition, Quaternion.identity);
+                Debug.Log(projectilePosition);
+            }
+        }
+      
     }
   
 }
