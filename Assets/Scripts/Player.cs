@@ -8,7 +8,6 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
-
     Rigidbody2D myRigidBody;
     Animator myAnimator;
     Collider2D myCollider2d;
@@ -18,9 +17,16 @@ public class Player : MonoBehaviour
 
     public GameObject projectileLeft, projectileRight;
     Vector2 projectilePosition;
+
+    //Projectile
     public float fireRate = 0.5f;
     float nextFire = 0;
     bool facingRight = true;
+
+    //Combat
+    public int health = 3;
+    public float invincibleTimeAfterHurt = 2;
+
 
 
     private bool isGrounded;
@@ -34,12 +40,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //isGrounded = IsGrounded();
         Jump();
         Walk();
         FlipSprite();
         fire();
-        //HandleLayers();
     }
 
     private void Walk()
@@ -114,7 +118,21 @@ public class Player : MonoBehaviour
                 Debug.Log(projectilePosition);
             }
         }
-      
     }
-  
+    void Hurt()
+    {
+        health--;
+        /*
+        if (health <= 0)
+            Application.LoadLevel(Application.loadedLevel);
+        */
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy enemy = collision.collider.GetComponent<Enemy>();
+        if (enemy!=null)
+        {
+            Hurt();
+        }
+    }
 }

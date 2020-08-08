@@ -19,7 +19,7 @@ TagManager:
   - Enemy
   - Player
   - Projectile
-  - 
+  - Interface
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1302972665
+    locked: 0
+  - name: Interface
+    uniqueID: 1966977949
     locked: 0
