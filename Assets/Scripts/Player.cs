@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     Collider2D myCollider2d;
     [SerializeField] float runSpeed = 1.5f;
     [SerializeField] float jumpSpeed = 10.0f;
-    [SerializeField] private LayerMask platformLayerMask;
+    //[SerializeField] private LayerMask platformLayerMask;
 
     public GameObject projectileLeft, projectileRight;
     Vector2 projectilePosition;
@@ -27,9 +27,6 @@ public class Player : MonoBehaviour
     public int health = 3;
     public float invincibleTimeAfterHurt = 2;
 
-
-
-    private bool isGrounded;
     void Start()
     {
         myRigidBody = transform.GetComponent<Rigidbody2D>();
@@ -83,19 +80,25 @@ public class Player : MonoBehaviour
     {
         if (!myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            myAnimator.SetLayerWeight(1, 0);
+            Debug.Log(myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")));
+            myAnimator.SetLayerWeight(0, 1);
             myAnimator.SetTrigger("Iddling");
-
+            myAnimator.SetBool("Jumping",false);
             Debug.Log("Touching Layer");
+            return;
+        }
+        if (myCollider2d.IsTouchingLayers(LayerMask.GetMask("Movable")))
+        {
+            Debug.Log("Touching Movable Block@");
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+
             Vector2 jumpVelocityToAdd = new Vector2(5f, jumpSpeed);
             myRigidBody.velocity += jumpVelocityToAdd;
-            myAnimator.SetLayerWeight(1, 1);
-            myAnimator.SetTrigger("Jumping");
+            JumpAnimation();
         }
     }
 
@@ -119,20 +122,52 @@ public class Player : MonoBehaviour
             }
         }
     }
-    void Hurt()
+    void Hurt(float hurtTime)
     {
         health--;
-        /*
+        
         if (health <= 0)
             Application.LoadLevel(Application.loadedLevel);
-        */
+
+        else
+        {
+            StartCoroutine(HurtBlinker(hurtTime));
+        }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
         Enemy enemy = collision.collider.GetComponent<Enemy>();
         if (enemy!=null)
         {
-            Hurt();
+            Hurt(invincibleTimeAfterHurt);
         }
+
+    }
+
+    IEnumerator HurtBlinker(float hurtTime)
+    {
+        //Ignore Collision with Enemies
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int playerLayer = LayerMask.NameToLayer("Player");
+        Physics2D.IgnoreLayerCollision(enemyLayer,playerLayer);
+        //Start looping blink anime
+
+        myAnimator.SetLayerWeight(1,1);
+
+        //wait for invicibility to end
+        yield return new WaitForSeconds(hurtTime);
+
+        //stop blinking and re-enable collision
+        Physics2D.IgnoreLayerCollision(enemyLayer,playerLayer, false);
+        myAnimator.SetLayerWeight(1, 0);
+    }
+
+    void JumpAnimation()
+    {
+        myAnimator.SetLayerWeight(0, 1);
+        myAnimator.SetBool("Iddling", false);
+        myAnimator.SetBool("Walking", false);
+        myAnimator.SetTrigger("Jumping");
+        Debug.Log("In Air");
     }
 }

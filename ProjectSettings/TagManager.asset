@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Bubble
   - Platform
+  - Load
+  - Item1
+  - Dead
+  - Item2
+  - Item3
+  - Lock1
   layers:
   - Default
   - TransparentFX
@@ -20,10 +26,10 @@ TagManager:
   - Player
   - Projectile
   - Interface
-  - 
-  - 
-  - 
-  - 
+  - Movable
+  - Trap
+  - Trigger
+  - DonTouch
   - 
   - 
   - 
@@ -57,4 +63,7 @@ TagManager:
     locked: 0
   - name: Interface
     uniqueID: 1966977949
+    locked: 0
+  - name: Movable
+    uniqueID: 240974707
     locked: 0
