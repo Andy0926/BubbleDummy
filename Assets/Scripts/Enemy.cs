@@ -45,9 +45,5 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
 
         }
-        if (collision.gameObject.tag.Equals("Player"))
-        {
-            GameControl.totalLife -= 1;
-        }
     }
 }

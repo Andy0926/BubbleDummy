@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     Collider2D myCollider2d;
     [SerializeField] float runSpeed = 1.5f;
     [SerializeField] float jumpSpeed = 10.0f;
-    //[SerializeField] private LayerMask platformLayerMask;
 
     public GameObject projectileLeft, projectileRight;
     Vector2 projectilePosition;
@@ -21,7 +20,7 @@ public class Player : MonoBehaviour
     //Projectile
     public float fireRate = 0.5f;
     float nextFire = 0;
-    bool facingRight = true;
+    bool facingLeft = true;
 
     //Combat
     public int health = 3;
@@ -53,13 +52,13 @@ public class Player : MonoBehaviour
         myAnimator.SetBool("Walking", walking);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            facingRight = true;
+            facingLeft = true;
             Debug.Log("right");
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
          
-            facingRight = false;
+            facingLeft = false;
             Debug.Log("left");
         }
 
@@ -78,6 +77,21 @@ public class Player : MonoBehaviour
     }
     private void Jump()
     {
+        //Dont allow jump while in air
+
+        if (myCollider2d.IsTouchingLayers(LayerMask.GetMask("Movable"))|| myCollider2d.IsTouchingLayers(LayerMask.GetMask("Trigger")))
+        {
+            Debug.Log("Touching Movable Block@");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
+                Vector2 jumpVelocityToAdd = new Vector2(5f, jumpSpeed);
+                myRigidBody.velocity += jumpVelocityToAdd;
+                JumpAnimation();
+                return;
+            }
+        }
+
         if (!myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             Debug.Log(myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")));
@@ -85,21 +99,18 @@ public class Player : MonoBehaviour
             myAnimator.SetTrigger("Iddling");
             myAnimator.SetBool("Jumping",false);
             Debug.Log("Touching Layer");
-            return;
-        }
-        if (myCollider2d.IsTouchingLayers(LayerMask.GetMask("Movable")))
-        {
-            Debug.Log("Touching Movable Block@");
-            return;
-        }
 
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
             Vector2 jumpVelocityToAdd = new Vector2(5f, jumpSpeed);
             myRigidBody.velocity += jumpVelocityToAdd;
             JumpAnimation();
+            return;
         }
+
     }
 
     void fire()
@@ -108,24 +119,24 @@ public class Player : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             projectilePosition = transform.position;
-            if (facingRight)
+            if (facingLeft)
             {
                 projectilePosition += new Vector2(+0.1f, 0);
                 Instantiate(projectileRight, projectilePosition, Quaternion.identity);
-                Debug.Log(projectilePosition);
+                //Debug.Log(projectilePosition);
             }
             else
             {
                 projectilePosition += new Vector2(-0.1f, 0);
                 Instantiate(projectileLeft, projectilePosition, Quaternion.identity);
-                Debug.Log(projectilePosition);
+                //Debug.Log(projectilePosition);
             }
         }
     }
-    void Hurt(float hurtTime)
+    void Hurt(float hurtTime, int damage)
     {
-        health--;
-        
+        health -= damage;
+        Debug.Log(health);
         if (health <= 0)
             Application.LoadLevel(Application.loadedLevel);
 
@@ -137,9 +148,16 @@ public class Player : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Enemy enemy = collision.collider.GetComponent<Enemy>();
+        FlyingEnemy flyingEnemy = collision.collider.GetComponent<FlyingEnemy>();
         if (enemy!=null)
         {
-            Hurt(invincibleTimeAfterHurt);
+            Hurt(invincibleTimeAfterHurt, 1);
+            GameControl.totalLife -= 1;
+        }
+        if (flyingEnemy != null)
+        {
+            Hurt(invincibleTimeAfterHurt, 2);
+            GameControl.totalLife -= 2;
         }
 
     }
@@ -168,6 +186,6 @@ public class Player : MonoBehaviour
         myAnimator.SetBool("Iddling", false);
         myAnimator.SetBool("Walking", false);
         myAnimator.SetTrigger("Jumping");
-        Debug.Log("In Air");
+        //Debug.Log("In Air");
     }
 }

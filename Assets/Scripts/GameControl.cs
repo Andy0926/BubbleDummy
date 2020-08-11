@@ -45,6 +45,7 @@ public class GameControl : MonoBehaviour
                 health3.gameObject.SetActive(false);
                 break;
             case 0:
+            case -1:
                 health1.gameObject.SetActive(false);
                 health2.gameObject.SetActive(false);
                 health3.gameObject.SetActive(false);

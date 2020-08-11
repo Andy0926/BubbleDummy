@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\FirstLevelTrigger1.cs" />
     <Compile Include="Assets\Scripts\FirstLevelTrigger2.cs" />
+    <Compile Include="Assets\Scripts\FlyingEnemy.cs" />
     <Compile Include="Assets\Scripts\GameControl.cs" />
     <Compile Include="Assets\Scripts\InstantDeath.cs" />
     <Compile Include="Assets\Scripts\Interaction.cs" />
