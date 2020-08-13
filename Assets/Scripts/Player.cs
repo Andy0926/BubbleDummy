@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Build;
+using UnityEditor.U2D.Path.GUIFramework;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
@@ -26,6 +28,11 @@ public class Player : MonoBehaviour
     public int health = 3;
     public float invincibleTimeAfterHurt = 2;
 
+    float controlThrow = 0;
+    float velX;
+    float velY;
+
+
     void Start()
     {
         myRigidBody = transform.GetComponent<Rigidbody2D>();
@@ -43,25 +50,24 @@ public class Player : MonoBehaviour
     }
 
     private void Walk()
-    {
-        float controlThrow = CrossPlatformInputManager.GetAxis("Horizontal"); //value is between -1 to +1
-        Vector2 playerVelocity = new Vector2(controlThrow * runSpeed, myRigidBody.velocity.y);
-        myRigidBody.velocity = playerVelocity;
-
-        bool walking = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
-        myAnimator.SetBool("Walking", walking);
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+    {   
+        velX = Input.GetAxisRaw("Horizontal");
+        if (velX ==1)
+        {
+            facingLeft = false;
+            myAnimator.SetBool("Walking", true);
+        }
+        else if (velX == -1)
         {
             facingLeft = true;
-            Debug.Log("right");
+            myAnimator.SetBool("Walking", true);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else
         {
-         
-            facingLeft = false;
-            Debug.Log("left");
+            myAnimator.SetBool("Walking", false);
         }
-
+        velY = myRigidBody.velocity.y;
+        myRigidBody.velocity = new Vector2(velX*runSpeed,velY);   
     }
 
     private void FlipSprite()
@@ -70,8 +76,7 @@ public class Player : MonoBehaviour
         bool velocity = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         if(velocity)
         {
-            transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x),1f);
-            
+            transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x),1f) ;          
             // reverse the current scaling of x axis
         }
     }
@@ -84,10 +89,12 @@ public class Player : MonoBehaviour
             Debug.Log("Touching Movable Block@");
             if (Input.GetKeyDown(KeyCode.Space))
             {
-
+                Debug.Log("Sppace");
+                SoundManagerScript.PlaySound("Jump");
                 Vector2 jumpVelocityToAdd = new Vector2(5f, jumpSpeed);
                 myRigidBody.velocity += jumpVelocityToAdd;
                 JumpAnimation();
+
                 return;
             }
         }
@@ -104,7 +111,8 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            Debug.Log("Sppace");
+            SoundManagerScript.PlaySound("Jump");
             Vector2 jumpVelocityToAdd = new Vector2(5f, jumpSpeed);
             myRigidBody.velocity += jumpVelocityToAdd;
             JumpAnimation();
@@ -119,20 +127,23 @@ public class Player : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             projectilePosition = transform.position;
+            SoundManagerScript.PlaySound("Fire");
+            
             if (facingLeft)
-            {
-                projectilePosition += new Vector2(+0.1f, 0);
-                Instantiate(projectileRight, projectilePosition, Quaternion.identity);
-                //Debug.Log(projectilePosition);
-            }
-            else
             {
                 projectilePosition += new Vector2(-0.1f, 0);
                 Instantiate(projectileLeft, projectilePosition, Quaternion.identity);
-                //Debug.Log(projectilePosition);
             }
-        }
+            else
+            {
+                projectilePosition += new Vector2(+0.1f, 0);
+                Instantiate(projectileRight, projectilePosition, Quaternion.identity);
+            }
+            StartCoroutine(FireAnimation());
+        }       
     }
+
+
     void Hurt(float hurtTime, int damage)
     {
         health -= damage;
@@ -151,11 +162,13 @@ public class Player : MonoBehaviour
         FlyingEnemy flyingEnemy = collision.collider.GetComponent<FlyingEnemy>();
         if (enemy!=null)
         {
+            SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 1);
             GameControl.totalLife -= 1;
         }
         if (flyingEnemy != null)
         {
+            SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 2);
             GameControl.totalLife -= 2;
         }
@@ -171,13 +184,20 @@ public class Player : MonoBehaviour
         //Start looping blink anime
 
         myAnimator.SetLayerWeight(1,1);
-
         //wait for invicibility to end
         yield return new WaitForSeconds(hurtTime);
 
         //stop blinking and re-enable collision
         Physics2D.IgnoreLayerCollision(enemyLayer,playerLayer, false);
         myAnimator.SetLayerWeight(1, 0);
+    }
+    
+    IEnumerator FireAnimation()
+    {
+        Debug.Log("Fireanimation wait");
+        myAnimator.SetLayerWeight(2,1);
+        yield return new WaitForSeconds(0.2f);
+        myAnimator.SetLayerWeight(2,0);
     }
 
     void JumpAnimation()

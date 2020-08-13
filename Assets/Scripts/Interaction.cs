@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Interaction : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class Interaction : MonoBehaviour
     public GameObject lock1;
 
     public static bool key1 = false;
+
+    private int nextSceneToLoad;
+
+    private void Start()
+    {
+        nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Item1"))
@@ -39,6 +48,14 @@ public class Interaction : MonoBehaviour
                 Debug.Log("DoorUnlocked");
                 lock1.SetActive(false);
             }          
+        }
+        if (collision.gameObject.CompareTag("CheckPoint"))
+        {
+            SceneManager.LoadScene(nextSceneToLoad);
+            if (GameControl.totalItem==3)
+            {
+                SceneManager.LoadScene(nextSceneToLoad);
+            }
         }
     }
 }

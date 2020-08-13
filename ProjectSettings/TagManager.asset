@@ -12,6 +12,8 @@ TagManager:
   - Item2
   - Item3
   - Lock1
+  - Trigger
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

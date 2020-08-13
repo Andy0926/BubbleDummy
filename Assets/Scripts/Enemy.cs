@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Bubble"))
         {
+            SoundManagerScript.PlaySound("Hit");
             Destroy(collision.gameObject);
             Destroy(gameObject);
 

@@ -9,13 +9,13 @@ public class BubbleProjectile : MonoBehaviour
     Rigidbody2D rigidBody;
     Vector3 lastVelocity;
     public int timer =1;
-
+    public static bool reflectedBullet = false;
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.velocity = new Vector2(velocityX, velocityY);
-        //GameObject.Destroy(gameObject,3f);
+        timer = 0;
     }
 
     // Update is called once per frame
@@ -23,24 +23,29 @@ public class BubbleProjectile : MonoBehaviour
     {
         lastVelocity = rigidBody.velocity;
         timer++;
-        if(timer==1000){
-            //GameObject bubble = GameObject.FindGameObjectsWithTag("Bubble");
+        if(timer==800){
+            
             Destroy(GameObject.FindWithTag("Bubble"));
+            BubbleProjectile.reflectedBullet = false;
         }
-        //Destroy(gameObject, 5f); ;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform")|| collision.gameObject.CompareTag("Trigger")|| collision.gameObject.CompareTag("Bubble"))
         {
             Debug.Log("Reflect");
-
-            var speed = lastVelocity.magnitude;
+            reflectedBullet = true;
+            SoundManagerScript.PlaySound("Reflect");
+            var speed = lastVelocity.magnitude+0.5f;
             var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
             Debug.Log(direction);
             rigidBody.velocity = direction * speed;
+        }
+        else
+        {
+            //reflectedBullet = false;
         }
     }
 }

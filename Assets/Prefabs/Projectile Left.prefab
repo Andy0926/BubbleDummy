@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityX: -2
   velocityY: 0
+  timer: 1
 --- !u!58 &-4975714957166736776
 CircleCollider2D:
   m_ObjectHideFlags: 0

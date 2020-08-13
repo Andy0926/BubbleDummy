@@ -13,7 +13,11 @@ public class FlyingEnemy : MonoBehaviour
 	[SerializeField]
 	float magnitude = 0.01f;
 
+	[SerializeField] float maxPosLeft = 0f;
+	[SerializeField] float maxPosRight = 8f;
+
 	bool facingLeft = false;
+
 
 	Vector3 pos, localScale;
 
@@ -42,10 +46,10 @@ public class FlyingEnemy : MonoBehaviour
 
 	void CheckWhereToFace()
 	{
-		if (pos.x < 0f)
+		if (pos.x < maxPosLeft)
 			facingLeft = false;
 
-		else if (pos.x > 8f)
+		else if (pos.x > maxPosRight)
 			facingLeft = true;
 
 		if (((facingLeft) && (localScale.x < 0)) || ((!facingLeft) && (localScale.x > 0)))
@@ -80,6 +84,7 @@ public class FlyingEnemy : MonoBehaviour
 		if (collision.gameObject.tag.Equals("Bubble"))
 		{
 			Destroy(collision.gameObject);
+			SoundManagerScript.PlaySound("Hit");
 			Debug.Log("Hit");
 			if (heathPoint==0)
             {
