@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
         if (myCollider2d.IsTouchingLayers(LayerMask.GetMask("Movable"))|| myCollider2d.IsTouchingLayers(LayerMask.GetMask("Trigger")))
         {
-            Debug.Log("Touching Movable Block@");
+            //Debug.Log("Touching Movable Block@");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("Sppace");
@@ -101,17 +101,17 @@ public class Player : MonoBehaviour
 
         if (!myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            Debug.Log(myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")));
+            //Debug.Log(myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground")));
             myAnimator.SetLayerWeight(0, 1);
             myAnimator.SetTrigger("Iddling");
             myAnimator.SetBool("Jumping",false);
-            Debug.Log("Touching Layer");
+           // Debug.Log("Touching Layer");
 
             return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Sppace");
+           // Debug.Log("Sppace");
             SoundManagerScript.PlaySound("Jump");
             Vector2 jumpVelocityToAdd = new Vector2(5f, jumpSpeed);
             myRigidBody.velocity += jumpVelocityToAdd;
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
         health -= damage;
         Debug.Log(health);
         if (health <= 0)
-            Application.LoadLevel(Application.loadedLevel);
+            GameOverScript.gameIsOver = true;
 
         else
         {
@@ -160,6 +160,7 @@ public class Player : MonoBehaviour
     {
         Enemy enemy = collision.collider.GetComponent<Enemy>();
         FlyingEnemy flyingEnemy = collision.collider.GetComponent<FlyingEnemy>();
+        SpecialEnemy specialEnemy = collision.collider.GetComponent<SpecialEnemy>();
         if (enemy!=null)
         {
             SoundManagerScript.PlaySound("Hurt");
@@ -171,6 +172,12 @@ public class Player : MonoBehaviour
             SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 2);
             GameControl.totalLife -= 2;
+        }
+        if (specialEnemy!=null)
+        {
+            SoundManagerScript.PlaySound("Hurt");
+            Hurt(invincibleTimeAfterHurt, 1);
+            GameControl.totalLife -= 1;
         }
 
     }

@@ -6,7 +6,7 @@ public class GameControl : MonoBehaviour
 {
     public GameObject health1, health2, health3;
     public GameObject item1, item2, item3;
-    public GameObject lock1;
+
     public static int totalLife;
     public static int totalItem;
 
@@ -21,7 +21,6 @@ public class GameControl : MonoBehaviour
         item1.gameObject.SetActive(false);
         item2.gameObject.SetActive(false);
         item3.gameObject.SetActive(false);
-        lock1.gameObject.SetActive(true);
     }
 
     // Update is called once per frame

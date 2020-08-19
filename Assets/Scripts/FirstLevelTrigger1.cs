@@ -17,6 +17,7 @@ public class FirstLevelTrigger1 : MonoBehaviour
         if (collision.gameObject.CompareTag("Load"))
         {
             Debug.Log("trigger1");
+            SoundManagerScript.PlaySound("Interact");
             disappearGround.SetActive(false);
             trigger.SetActive(false);
         }

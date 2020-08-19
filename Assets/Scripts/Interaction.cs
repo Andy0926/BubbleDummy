@@ -28,18 +28,21 @@ public class Interaction : MonoBehaviour
             Debug.Log("Item1Picked");
             itemPick1.SetActive(false);
             GameControl.totalItem += 1;
+            SoundManagerScript.PlaySound("Pick");
         }
         if (collision.gameObject.CompareTag("Item2"))
         {
             Debug.Log("Item2Picked");
             itemPick2.SetActive(false);
             GameControl.totalItem += 1;
+            SoundManagerScript.PlaySound("Pick");
         }
         if (collision.gameObject.CompareTag("Item3"))
         {
             Debug.Log("Item3Picked");
             itemPick3.SetActive(false);
             GameControl.totalItem += 1;
+            SoundManagerScript.PlaySound("Pick");
         }
         if (collision.gameObject.CompareTag("Lock1"))
         {
@@ -47,11 +50,12 @@ public class Interaction : MonoBehaviour
             {
                 Debug.Log("DoorUnlocked");
                 lock1.SetActive(false);
+                SoundManagerScript.PlaySound("Interact");
             }          
         }
         if (collision.gameObject.CompareTag("CheckPoint"))
         {
-            SceneManager.LoadScene(nextSceneToLoad);
+            //SceneManager.LoadScene(nextSceneToLoad);
             if (GameControl.totalItem==3)
             {
                 SceneManager.LoadScene(nextSceneToLoad);

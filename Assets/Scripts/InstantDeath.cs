@@ -13,7 +13,7 @@ public class InstantDeath : MonoBehaviour
             GameControl.totalLife = 0;
             health = 0;
             SoundManagerScript.PlaySound("Hurt");
-            Application.LoadLevel(Application.loadedLevel);
+            GameOverScript.gameIsOver = true;
             Debug.Log("Die");
         }
     }

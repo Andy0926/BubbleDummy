@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour
 {
-    public static AudioClip jumpSound, reflectSound, hitSound, hurtSound, fireSound;
+    public static AudioClip jumpSound, reflectSound, hitSound,
+        hurtSound, fireSound, pickSound, interactSound;
     static AudioSource audioSrc;
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,8 @@ public class SoundManagerScript : MonoBehaviour
         hitSound = Resources.Load<AudioClip>("Hit");
         hurtSound = Resources.Load<AudioClip>("Hurt");
         fireSound = Resources.Load<AudioClip>("Fire");
+        pickSound = Resources.Load<AudioClip>("ItemPick");
+        interactSound = Resources.Load<AudioClip>("Interact");
 
         audioSrc = GetComponent<AudioSource>();
     }
@@ -35,6 +38,12 @@ public class SoundManagerScript : MonoBehaviour
                 break;
             case "Fire":
                 audioSrc.PlayOneShot(fireSound);
+                break;
+            case "Pick":
+                audioSrc.PlayOneShot(pickSound);
+                break;
+            case "Interact":
+                audioSrc.PlayOneShot(interactSound);
                 break;
         }
         return;

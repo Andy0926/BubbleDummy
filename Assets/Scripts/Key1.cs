@@ -15,6 +15,7 @@ public class Key1 : MonoBehaviour
             Debug.Log("Key1");
             key.SetActive(false);
             Interaction.key1 = true;
+            SoundManagerScript.PlaySound("Pick");
         }
 
     }
