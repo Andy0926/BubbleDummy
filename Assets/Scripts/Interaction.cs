@@ -10,9 +10,10 @@ public class Interaction : MonoBehaviour
     //Object interaction
     public GameObject itemPick1, itemPick2, itemPick3;
 
-    public GameObject lock1;
+    public GameObject lock1, lock2 ;
 
     public static bool key1 = false;
+    public static bool key2 = false;
 
     private int nextSceneToLoad;
 
@@ -53,9 +54,22 @@ public class Interaction : MonoBehaviour
                 SoundManagerScript.PlaySound("Interact");
             }          
         }
+
+        if (collision.gameObject.CompareTag("Lock2"))
+        {
+            if (key2 == true)
+            {
+                Debug.Log("DoorUnlocked");
+                lock2.SetActive(false);
+                SoundManagerScript.PlaySound("Interact");
+            }
+        }
+
         if (collision.gameObject.CompareTag("CheckPoint"))
         {
             //SceneManager.LoadScene(nextSceneToLoad);
+            //GameControl.totalItem = 3;
+            Debug.Log(GameControl.totalItem);
             if (GameControl.totalItem==3)
             {
                 SceneManager.LoadScene(nextSceneToLoad);

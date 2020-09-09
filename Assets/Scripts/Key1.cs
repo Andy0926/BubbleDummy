@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Key1 : MonoBehaviour
 {
-    public bool keyState;
+    //public bool keyState;
     public GameObject key;
     // Start is called before the first frame update
     void OnCollisionEnter2D(Collision2D collision)

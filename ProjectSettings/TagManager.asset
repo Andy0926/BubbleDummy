@@ -14,6 +14,8 @@ TagManager:
   - Lock1
   - Trigger
   - CheckPoint
+  - Trigger1
+  - Lock2
   layers:
   - Default
   - TransparentFX

@@ -48,6 +48,7 @@ public class GameControl : MonoBehaviour
                 health1.gameObject.SetActive(false);
                 health2.gameObject.SetActive(false);
                 health3.gameObject.SetActive(false);
+                GameOverScript.gameIsOver=true;
                 break;
         }
         switch (totalItem)

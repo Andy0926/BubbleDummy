@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     Collider2D myCollider2d;
     [SerializeField] float runSpeed = 1.5f;
     [SerializeField] float jumpSpeed = 10.0f;
+    //BoxCollider2D
 
     public GameObject projectileLeft, projectileRight;
     Vector2 projectilePosition;
@@ -28,16 +29,15 @@ public class Player : MonoBehaviour
     public int health = 3;
     public float invincibleTimeAfterHurt = 2;
 
-    float controlThrow = 0;
     float velX;
     float velY;
-
 
     void Start()
     {
         myRigidBody = transform.GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myCollider2d = GetComponent<Collider2D>();
+        //distToGround = myCollider2d.bounds.extents.y;
     }
 
     // Update is called once per frame
@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
         Walk();
         FlipSprite();
         fire();
+        //Debug.Log(IsGrounded()+"here");
     }
 
     private void Walk()

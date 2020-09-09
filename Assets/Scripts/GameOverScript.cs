@@ -36,6 +36,9 @@ public class GameOverScript : MonoBehaviour
         Debug.Log("TryAgain");
         Application.LoadLevel(Application.loadedLevel);
         Time.timeScale = 1f;
+        gameIsOver = false;
+        GameControl.totalItem = 0;
+        GameControl.totalLife = 3;
     }
 
 
