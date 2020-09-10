@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\MISC\GameEntry.cs" />
     <Compile Include="Assets\Scripts\MISC\GameOverScript.cs" />
     <Compile Include="Assets\Scripts\MISC\GamePausedScript.cs" />
+    <Compile Include="Assets\Scripts\MISC\PlayBackgroundMusic.cs" />
     <Compile Include="Assets\Scripts\MISC\SoundManagerScript.cs" />
     <Compile Include="Assets\Scripts\Mechanic\FirstLevelTrigger1.cs" />
     <Compile Include="Assets\Scripts\Mechanic\FirstLevelTrigger2.cs" />

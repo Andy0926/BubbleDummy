@@ -19,6 +19,7 @@ public class FirstLevelTrigger2 : MonoBehaviour
             Debug.Log("trigger1");
             disappearGround.SetActive(true);
             SoundManagerScript.PlaySound("Interact");
+            Destroy(collision.gameObject);
         }
 
     }
