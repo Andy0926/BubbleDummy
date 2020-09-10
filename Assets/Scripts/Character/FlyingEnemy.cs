@@ -86,12 +86,13 @@ public class FlyingEnemy : MonoBehaviour
 			Destroy(collision.gameObject);
 			SoundManagerScript.PlaySound("Hit");
 			Debug.Log("Hit");
-			if (heathPoint==0)
-            {
-				
+			if (heathPoint == 0)
+			{
+
 				Destroy(gameObject);
 			}
 			heathPoint--;
+
 		}
 	}
 }

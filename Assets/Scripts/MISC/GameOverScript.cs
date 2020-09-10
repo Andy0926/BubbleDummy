@@ -26,7 +26,7 @@ public class GameOverScript : MonoBehaviour
             Debug.Log("gameover");
             gameOverOverlay.SetActive(true);
             Time.timeScale = 0f;
-            gameIsOver = false;
+            //gameIsOver = false;
         }
 
     }
@@ -39,6 +39,7 @@ public class GameOverScript : MonoBehaviour
         gameIsOver = false;
         GameControl.totalItem = 0;
         GameControl.totalLife = 3;
+        Player.health = 3;
     }
 
 

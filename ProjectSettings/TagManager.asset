@@ -16,6 +16,7 @@ TagManager:
   - CheckPoint
   - Trigger1
   - Lock2
+  - Princess
   layers:
   - Default
   - TransparentFX

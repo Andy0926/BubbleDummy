@@ -32,6 +32,7 @@ public class GamePausedScript : MonoBehaviour
         Debug.Log("TryAgain");
         Application.LoadLevel(Application.loadedLevel);
         Time.timeScale = 1f;
+        Player.health = 3;
     }
     public void QuitGame()
     {

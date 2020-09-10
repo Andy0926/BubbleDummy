@@ -186,7 +186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!212 &85740086
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -488,7 +487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!212 &127878132
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1289,7 +1287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!1 &264190797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,7 +1736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!212 &415521506
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2029,7 +2025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff769f5cd628084c99204465a4b32a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyState: 0
   key: {fileID: 454140326}
 --- !u!212 &454140329
 SpriteRenderer:
@@ -2293,7 +2288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!1 &465820269
 GameObject:
   m_ObjectHideFlags: 0
@@ -8112,7 +8106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!212 &827689539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10340,7 +10333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7286a44e787609e45bb477a195a2b2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!212 &1687633123
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10815,7 +10807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778944135}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.66, y: 2.38, z: 0}
+  m_LocalPosition: {x: -8.15, y: 3.45, z: 0}
   m_LocalScale: {x: 1, y: 1.0297782, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10859,7 +10851,6 @@ MonoBehaviour:
   projectileRight: {fileID: 812026391311839544, guid: 9ac22734efabe634a90c5ecd46a53522,
     type: 3}
   fireRate: 1
-  health: 3
   invincibleTimeAfterHurt: 2
 --- !u!114 &1778944142
 MonoBehaviour:
@@ -10877,6 +10868,8 @@ MonoBehaviour:
   itemPick2: {fileID: 575027515}
   itemPick3: {fileID: 786239366}
   lock1: {fileID: 7501190}
+  lock2: {fileID: 0}
+  congratulationOverlay: {fileID: 0}
 --- !u!61 &1778944143
 BoxCollider2D:
   m_ObjectHideFlags: 0

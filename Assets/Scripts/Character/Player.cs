@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     bool facingLeft = true;
 
     //Combat
-    public int health = 3;
+    public static int health = 3;
     public float invincibleTimeAfterHurt = 2;
 
     float velX;
@@ -162,6 +162,7 @@ public class Player : MonoBehaviour
         Enemy enemy = collision.collider.GetComponent<Enemy>();
         FlyingEnemy flyingEnemy = collision.collider.GetComponent<FlyingEnemy>();
         SpecialEnemy specialEnemy = collision.collider.GetComponent<SpecialEnemy>();
+        MutantFlyingEnemy mutantFlyingEnemy = collision.collider.GetComponent<MutantFlyingEnemy>();
         if (enemy!=null)
         {
             SoundManagerScript.PlaySound("Hurt");
@@ -179,6 +180,12 @@ public class Player : MonoBehaviour
             SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 1);
             GameControl.totalLife -= 1;
+        }
+        if (mutantFlyingEnemy != null)
+        {
+            SoundManagerScript.PlaySound("Hurt");
+            Hurt(invincibleTimeAfterHurt, 3);
+            GameControl.totalLife -= 3;
         }
 
     }

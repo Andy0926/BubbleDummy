@@ -21,6 +21,6 @@ public class FirstLevelTrigger1 : MonoBehaviour
             disappearGround.SetActive(false);
             trigger.SetActive(false);
         }
-
+       
     }
 }

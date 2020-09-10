@@ -12,6 +12,8 @@ public class Interaction : MonoBehaviour
 
     public GameObject lock1, lock2 ;
 
+    public GameObject congratulationOverlay;
+
     public static bool key1 = false;
     public static bool key2 = false;
 
@@ -20,6 +22,7 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+        congratulationOverlay.SetActive(false);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -74,6 +77,11 @@ public class Interaction : MonoBehaviour
             {
                 SceneManager.LoadScene(nextSceneToLoad);
             }
+        }
+        if (collision.gameObject.CompareTag("Princess"))
+        {
+            GameEnd.congratulation=true;
+            Time.timeScale = 0f;
         }
     }
 }

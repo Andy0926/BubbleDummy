@@ -20,7 +20,7 @@ public class SecondLevelTrigger1 : MonoBehaviour
             Debug.Log("trigger2");
             SoundManagerScript.PlaySound("Interact");
             disappearWall.SetActive(false);
-            
+            Destroy(collision.gameObject);
         }
 
     }
