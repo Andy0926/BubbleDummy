@@ -4705,7 +4705,7 @@ MonoBehaviour:
   itemPick3: {fileID: 1680424399}
   lock1: {fileID: 0}
   lock2: {fileID: 657385300}
-  congratulationOverlay: {fileID: 0}
+  congratulationOverlay: {fileID: 656554007}
 --- !u!114 &1047160771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4840,7 +4840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047160768}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.29, y: 2.29, z: 0}
+  m_LocalPosition: {x: 7.35, y: 2.18, z: 0}
   m_LocalScale: {x: 1, y: 1.0297782, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

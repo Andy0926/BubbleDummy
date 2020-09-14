@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GamePausedScript : MonoBehaviour
 {
     public GameObject gamePausedOverlay;
@@ -30,7 +30,7 @@ public class GamePausedScript : MonoBehaviour
     public void Restart()
     {
         Debug.Log("TryAgain");
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene("First Stage");
         Time.timeScale = 1f;
         Player.health = 3;
     }

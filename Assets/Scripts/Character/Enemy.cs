@@ -7,11 +7,11 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float moveSpeed = 1f;
     Rigidbody2D myRigidBody2D;
-    Collider2D myCollider2d;
+    //Collider2D myCollider2d;
     void Start()
     {
         myRigidBody2D = GetComponent<Rigidbody2D>();
-        myCollider2d = GetComponent<Collider2D>();
+        //myCollider2d = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame

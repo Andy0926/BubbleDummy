@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
         myRigidBody = transform.GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myCollider2d = GetComponent<Collider2D>();
+        health = 3;
+        Debug.Log(health);
         //distToGround = myCollider2d.bounds.extents.y;
     }
 
@@ -148,7 +150,7 @@ public class Player : MonoBehaviour
     void Hurt(float hurtTime, int damage)
     {
         health -= damage;
-        Debug.Log(health);
+        Debug.Log("HURT FUNCTION="+health);
         if (health <= 0)
             GameOverScript.gameIsOver = true;
 
@@ -163,29 +165,41 @@ public class Player : MonoBehaviour
         FlyingEnemy flyingEnemy = collision.collider.GetComponent<FlyingEnemy>();
         SpecialEnemy specialEnemy = collision.collider.GetComponent<SpecialEnemy>();
         MutantFlyingEnemy mutantFlyingEnemy = collision.collider.GetComponent<MutantFlyingEnemy>();
+        InstantDeath instantDeath = collision.collider.GetComponent<InstantDeath>();
         if (enemy!=null)
         {
             SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 1);
             GameControl.totalLife -= 1;
+            Debug.Log("Normal Enemy");
         }
         if (flyingEnemy != null)
         {
             SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 2);
             GameControl.totalLife -= 2;
+            Debug.Log("Flying Enemy");
         }
         if (specialEnemy!=null)
         {
             SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 1);
             GameControl.totalLife -= 1;
+            Debug.Log("Special Enemy");
         }
         if (mutantFlyingEnemy != null)
         {
             SoundManagerScript.PlaySound("Hurt");
             Hurt(invincibleTimeAfterHurt, 3);
             GameControl.totalLife -= 3;
+            Debug.Log("Mutant Enemy");
+        }
+        if (instantDeath !=null)
+        {
+            SoundManagerScript.PlaySound("Hurt");
+            Hurt(invincibleTimeAfterHurt, 3);
+            GameControl.totalLife -= 3;
+            Debug.Log("Instant Death");
         }
 
     }

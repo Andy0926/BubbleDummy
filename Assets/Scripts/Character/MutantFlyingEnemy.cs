@@ -18,10 +18,7 @@ public class MutantFlyingEnemy : MonoBehaviour
 
 	bool facingLeft = false;
 
-
 	Vector3 pos, localScale;
-
-	int heathPoint = 2;
 
 	// Use this for initialization
 	void Start()

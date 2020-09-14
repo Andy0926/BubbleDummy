@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameOverScript : MonoBehaviour
 {
     public GameObject gameOverOverlay;
@@ -23,7 +23,7 @@ public class GameOverScript : MonoBehaviour
     {
         if (gameIsOver==true)
         {
-            Debug.Log("gameover");
+            //Debug.Log("gameover");
             gameOverOverlay.SetActive(true);
             Time.timeScale = 0f;
             //gameIsOver = false;
@@ -34,7 +34,7 @@ public class GameOverScript : MonoBehaviour
     public void TryAgain()
     {
         Debug.Log("TryAgain");
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene("First Stage");
         Time.timeScale = 1f;
         gameIsOver = false;
         GameControl.totalItem = 0;

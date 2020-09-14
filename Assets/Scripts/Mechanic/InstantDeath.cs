@@ -11,10 +11,10 @@ public class InstantDeath : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            GameControl.totalLife = 0;
+            //GameControl.totalLife = 0;
             //Player.health = 0;
-            SoundManagerScript.PlaySound("Hurt");
-            GameOverScript.gameIsOver = true;
+            //SoundManagerScript.PlaySound("Hurt");
+            //GameOverScript.gameIsOver = true;
             Debug.Log("Die");
         }
     }

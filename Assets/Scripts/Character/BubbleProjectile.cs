@@ -33,14 +33,14 @@ public class BubbleProjectile : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Platform")|| collision.gameObject.CompareTag("Trigger")|| collision.gameObject.CompareTag("Bubble"))
+        if (collision.gameObject.CompareTag("Platform")|| collision.gameObject.CompareTag("Trigger")|| collision.gameObject.CompareTag("Bubble") || collision.gameObject.CompareTag("Lock1"))
         {
-            Debug.Log("Reflect");
+            //Debug.Log("Reflect");
             reflectedBullet = true;
             SoundManagerScript.PlaySound("Reflect");
             var speed = lastVelocity.magnitude+0.5f;
             var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
-            Debug.Log(direction);
+            //Debug.Log(direction);
             rigidBody.velocity = direction * speed;
         }
         else

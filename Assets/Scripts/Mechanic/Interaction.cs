@@ -29,23 +29,24 @@ public class Interaction : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Item1"))
         {
-            Debug.Log("Item1Picked");
+            
             itemPick1.SetActive(false);
             GameControl.totalItem += 1;
+            Debug.Log("Item1Picked = "+ GameControl.totalItem);
             SoundManagerScript.PlaySound("Pick");
         }
         if (collision.gameObject.CompareTag("Item2"))
         {
-            Debug.Log("Item2Picked");
             itemPick2.SetActive(false);
             GameControl.totalItem += 1;
+            Debug.Log("Item1Picked = " + GameControl.totalItem);
             SoundManagerScript.PlaySound("Pick");
         }
         if (collision.gameObject.CompareTag("Item3"))
         {
-            Debug.Log("Item3Picked");
             itemPick3.SetActive(false);
             GameControl.totalItem += 1;
+            Debug.Log("Item1Picked = " + GameControl.totalItem);
             SoundManagerScript.PlaySound("Pick");
         }
         if (collision.gameObject.CompareTag("Lock1"))
@@ -82,6 +83,10 @@ public class Interaction : MonoBehaviour
         {
             GameEnd.congratulation=true;
             Time.timeScale = 0f;
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Interact Enemy");
         }
     }
 }
